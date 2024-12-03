@@ -75,33 +75,21 @@ namespace Otus.BinaryTreeSearch
 
         private static void FindEmployee(Employee[] binaryTree, int salary, int node)
         {
-            var employee = binaryTree[0];
-            var height = Math.Log2(binaryTree.Length + 1) - 1;
-            if (node == 0 && employee.Salary == salary)
+            var employee = binaryTree[node];
+            if (employee.Salary == salary)
             {
                 Console.WriteLine($"Искомый сотрудник: {employee.Name}");
                 return;
             }
-            else if (node > height)
+            else if (employee.Salary > salary)
             {
-                Console.WriteLine("Такой сотрудник не найден!");
-                return;
+                var leftEmployee = 2 * node + 1;
+                FindEmployee(binaryTree, salary, leftEmployee);
             }
             else
             {
-                var leftEmployee = binaryTree[2 * node + 1];
-                var rightEmployee = binaryTree[2 * node + 2];
-                if (leftEmployee.Salary == salary)
-                {
-                    Console.WriteLine($"Искомый сотрудник: {leftEmployee.Name}");
-                    return;
-                }
-                else if (rightEmployee.Salary == salary)
-                {
-                    Console.WriteLine($"Искомый сотрудник: {rightEmployee.Name}");
-                    return;
-                }
-                FindEmployee(binaryTree, salary, node + 1);
+                var rightEmployee = 2 * node + 2;
+                FindEmployee(binaryTree, salary, rightEmployee);
             }
         }
 
