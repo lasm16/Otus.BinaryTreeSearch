@@ -118,7 +118,8 @@ namespace Otus.BinaryTreeSearch
 
         private static Employee[] BuildBinaryTree(List<Employee> employees)
         {
-            var array = new Employee[employees.Count];
+            // какой задть размер массива, чтобы был оптимальный?
+            var array = new Employee[employees.Count * 2];
 
             foreach (var employee in employees)
             {
@@ -138,17 +139,22 @@ namespace Otus.BinaryTreeSearch
         {
             var left = 2 * node + 1;
             var right = 2 * node + 2;
-            if (array[left] == null)
+            var currentEmployee = array[node];
+            if (currentEmployee.Salary > employee.Salary && array[left] == null)
             {
                 array[left] = employee;
             }
-            else if (array[right] == null)
+            else if (currentEmployee.Salary < employee.Salary && array[right] == null)
             {
                 array[right] = employee;
             }
+            else if (currentEmployee.Salary > employee.Salary)
+            {
+                AddEmployeeToArray(array, employee, 2 * node + 1);
+            }
             else
             {
-                AddEmployeeToArray(array, employee, node + 1);
+                AddEmployeeToArray(array, employee, 2 * node + 2);
             }
         }
     }
