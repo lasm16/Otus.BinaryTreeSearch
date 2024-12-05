@@ -1,11 +1,4 @@
-﻿
-
-
-
-
-using System.Xml.Linq;
-
-namespace Otus.BinaryTreeSearch
+﻿namespace Otus.BinaryTreeSearch
 {
     internal class Program
     {
@@ -102,7 +95,7 @@ namespace Otus.BinaryTreeSearch
         {
             var newArray = new Employee[binaryTree.Length];
 
-        }
+            }
 
         private static void FindTopSalary(Employee[] array, Employee employee, int node, int index)
         {
@@ -137,7 +130,7 @@ namespace Otus.BinaryTreeSearch
             {
                 array[left] = employee;
             }
-            else if (currentEmployee.Salary < employee.Salary && array[right] == null)
+            else if (currentEmployee.Salary <= employee.Salary && array[right] == null)
             {
                 array[right] = employee;
             }
