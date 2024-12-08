@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Otus.BinaryTreeSearch
 {
@@ -57,7 +58,6 @@ namespace Otus.BinaryTreeSearch
             //    employees.Add(employee);
             //}
             var binaryTree = BuildBinaryTree(employees);
-            ShowSalariesAsc(binaryTree, 0, false, false);
             SearhSalary(binaryTree);
         }
 
@@ -90,59 +90,6 @@ namespace Otus.BinaryTreeSearch
             {
                 var rightEmployee = 2 * node + 2;
                 FindEmployee(binaryTree, salary, rightEmployee);
-            }
-        }
-
-        private static void ShowSalariesAsc(Employee[] binaryTree, int node, bool leftChecked, bool rightChecked)
-        {
-            var left = 2 * node + 1;
-            var right = 2 * node + 2;
-            var currentEmployee = binaryTree[node];
-            if (currentEmployee == null)
-            {
-                var previous = ((node - 1) / 2 - 1) / 2;
-                var prevEmployee = binaryTree[previous];
-                Console.WriteLine($"Имя: {prevEmployee.Name}, зарплата: {prevEmployee.Salary}");
-                return;
-                //как-то выйти надо нормально из рекурсии...
-            }
-            if (leftChecked && rightChecked)
-            {
-                var previous = (node - 1) / 2;
-                var prevEmployee = binaryTree[previous];
-                Console.WriteLine($"Имя: {prevEmployee.Name}, зарплата: {prevEmployee.Salary}");
-                right = 2 * previous + 2;
-                ShowSalariesAsc(binaryTree, right, false, false);
-            }
-            if (right > binaryTree.Length && rightChecked)
-            {
-                Console.WriteLine($"Имя: {currentEmployee.Name}, зарплата: {currentEmployee.Salary}");
-                var previous = ((node - 1) / 2 - 1) / 2;
-                ShowSalariesAsc(binaryTree, previous, true, true);
-            }
-            if (left > binaryTree.Length && currentEmployee != null)
-            {
-                Console.WriteLine($"Имя: {currentEmployee.Name}, зарплата: {currentEmployee.Salary}");
-                var previous = (node - 1) / 2;
-                var prevEmployee = binaryTree[previous];
-                right = 2 * previous + 2;
-                Console.WriteLine($"Имя: {prevEmployee.Name}, зарплата: {prevEmployee.Salary}");
-                ShowSalariesAsc(binaryTree, right, false, true);
-            }
-            if (left > binaryTree.Length && currentEmployee == null)
-            {
-                return;
-            }
-            var leftEmployee = binaryTree[left];
-
-            if (leftEmployee != null)
-            {
-                ShowSalariesAsc(binaryTree, left, false, false);
-            }
-            else
-            {
-                Console.WriteLine($"Имя: {currentEmployee.Name}, зарплата: {currentEmployee.Salary}");
-                ShowSalariesAsc(binaryTree, right, false, false);
             }
         }
 
